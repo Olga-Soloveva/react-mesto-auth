@@ -1,0 +1,36 @@
+.profile__person-name {
+  max-width: 400px;
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 950px) {
+  .profile__person-name {
+    max-width: 350px;
+    font-size: 38px;
+    line-height: 43px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profile__person-name {
+    max-width: 270px;
+    font-size: 33px;
+    line-height: 38px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile__person-name {
+    font-size: 27px;
+    line-height: 33px;
+    text-align: center;
+    max-width: 250px;
+  }
+}

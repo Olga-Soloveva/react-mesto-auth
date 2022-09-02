@@ -1,0 +1,18 @@
+.profile__person {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 18px;
+  padding-bottom: 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .profile__person {
+    gap: 10px;
+    justify-content: center;
+    align-items: baseline;
+    padding-bottom: 7px;
+    margin: 0 -26px 0 0;
+  }
+}

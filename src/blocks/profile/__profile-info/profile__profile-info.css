@@ -1,0 +1,22 @@
+.profile__profile-info {
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 950px) {
+  .profile__profile-info {
+    max-width: 420px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profile__profile-info {
+    max-width: 380px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile__profile-info {
+    max-width: 100%;
+  }
+}

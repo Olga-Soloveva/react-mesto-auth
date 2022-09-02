@@ -1,0 +1,14 @@
+@import url(./__place-name/element__place-name.css);
+@import url(./__description/element__description.css);
+@import url(./__photo/element__photo.css);
+@import url(./__photo-container/element__photo-container.css);
+@import url(./__like/element__like.css);
+@import url(./__like-counter/element__like-counter.css);
+
+.element {
+  font-size: 0;
+  max-width: 100%;
+  min-width: 282px;
+  margin: 0;
+  box-sizing: border-box;
+}

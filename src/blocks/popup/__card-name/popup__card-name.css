@@ -1,0 +1,15 @@
+.popup__card-name {
+  color: #fff;
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+}

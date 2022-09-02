@@ -1,0 +1,26 @@
+.popup__field {
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  margin-bottom: 29px;
+}
+
+.popup__field:first-of-type {
+  margin-top: 48px;
+}
+
+.popup__field:last-of-type {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 650px) {
+  .popup__field:first-of-type {
+    margin-top: 75px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .popup__field:last-of-type {
+    margin-bottom: 7px;
+  }
+}

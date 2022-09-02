@@ -1,0 +1,7 @@
+.popup__card {
+  max-width: 75vw;
+  max-height: 75vh;
+  margin: auto;
+  object-fit: contain;
+  object-position: 50% 50%;
+  }
