@@ -17,6 +17,10 @@
 @import url(./_type/popup_type_open-card.css);
 @import url(./_type/popup_type_confirm.css);
 @import url(./_type/popup_type_edit-avatar.css);
+@import url(./__status-img/popup__status-img.css);
+@import url(./__status-img/_type/popup__status-img_type_error.css);
+@import url(./__status-img/_type/popup__status-img_type_ok.css);
+@import url(./__status-text/popup__status-text.css);
 
 .popup {
   visibility: hidden;

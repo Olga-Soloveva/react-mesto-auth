@@ -5,24 +5,27 @@
 @import url(./__button/_type/header__button_type_txt-close.css);
 @import url(./__button/_type/header__button_type_txt-login.css);
 @import url(./__button/_type/header__button_type_txt-register.css);
+@import url(./__menu-btn/header__menu-btn.css);
+@import url(./__menu-container/header__menu-container.css);
+@import url(./__close-btn/header__close-btn.css);
 
 .header {
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
-  padding: 0 0 37px;
+  padding: 45px 0 37px;
   display: flex;
   justify-content: space-between;
 }
 
 @media screen and (max-width: 950px) {
   .header {
-    padding: 0 0 33px;
+    padding: 35px 19px 33px;
   }
 }
 
 @media screen and (max-width: 650px) {
   .header {
-    padding: 0 0 28px;
+    padding: 28px 30px 28px;
   }
 }

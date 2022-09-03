@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
+import InfoTooltip from "./InfoTooltip";
+
 
 import Mesto from "./Mesto";
 
@@ -13,6 +15,12 @@ function App() {
   const handleLogin = () => {
     setLoggedIn(true);
   };
+
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+
+  function closeInfoTooltip() {
+    setInfoTooltipOpen(false)
+  }
 
   return (
     <div className="page">
@@ -33,6 +41,7 @@ function App() {
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
         </Route>
       </Switch>
+      <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeInfoTooltip} status='ok'/>
     </div>
   );
 }

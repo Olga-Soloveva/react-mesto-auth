@@ -6,3 +6,9 @@
   margin: 15px 0 0;
   padding: 0;
 }
+
+@media screen and (max-width: 650px) {
+  .form__question {
+    margin: 20px 0 0;
+  }
+}

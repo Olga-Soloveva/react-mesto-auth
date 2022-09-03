@@ -6,3 +6,11 @@
   margin: 0 0 50px;
   padding: 0;
 }
+
+@media screen and (max-width: 650px) {
+  .form__heading {
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 0 40px;
+  }
+}

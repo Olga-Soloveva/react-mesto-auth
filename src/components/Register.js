@@ -114,7 +114,7 @@ function Register() {
            Зарегистрироваться
          </button>
        </form>
-       <p className="form__question">Уже зарегистрированы? <Link className="form__question-islink">Войти</Link></p>
+       <p className="form__question">Уже зарегистрированы? <Link to="/sign-in" className="form__question-islink">Войти</Link></p>
      </div>
    </section>
    </>

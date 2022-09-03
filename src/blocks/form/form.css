@@ -17,3 +17,9 @@
   justify-content: center;
   padding-top: 60px;
 }
+
+@media screen and (max-width: 650px) {
+  .form {
+    padding-top: 40px;
+  }
+}
