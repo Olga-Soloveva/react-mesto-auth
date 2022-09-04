@@ -3,7 +3,7 @@ import logo from "../images/logo.svg";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-function Header() {
+function Header({userData, handleLoggedIn}) {
   const [windowWidth, setWindowWidth] = useState([window.innerWidth]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
@@ -22,7 +22,8 @@ function Header() {
   const history = useHistory();
 
   const signOut = () => {
-    // localStorage.removeItem('jwt');
+    handleLoggedIn()
+    localStorage.removeItem('jwt');
     history.push("/sign-in");
   };
   return (
@@ -60,7 +61,7 @@ function Header() {
 
         {windowWidth > 650 && (
           <div className="header__container">
-            <p className="header__user-email">e-mail user</p>
+            <p className="header__user-email">{userData.email}</p>
             <Link
               to="/sign-in"
               className="header__button header__button_type_txt-close"

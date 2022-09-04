@@ -2,9 +2,9 @@ import logo from "../images/logo.svg";
 
 import React, { useState, useEffect } from "react";
 
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 
-function Login() {
+function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -12,6 +12,11 @@ function Login() {
   const [isValidForm, setIsValidForm] = useState(false);
   const [errorEmailMessage, setErrorEmailMessage] = useState("");
   const [errorPasswordMessage, setErrorPasswordMessage] = useState("");
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+  };
+  const history = useHistory();
 
   function handleChangeEmail(evt) {
     setEmail(evt.target.value);
@@ -27,6 +32,15 @@ function Login() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    onLogin({ password, email })
+      .then(resetForm)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {

@@ -14,7 +14,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
 
-function Mesto({ loggedIn }) {
+function Mesto({userData, handleLoggedIn}) {
   const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
@@ -162,7 +162,7 @@ function Mesto({ loggedIn }) {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <>
-        <Header />
+        <Header userData={userData} handleLoggedIn={handleLoggedIn}/>
         <Main
           onEditProfile={handleEditProfileClick}
           onEditAvatar={handleEditAvatarClick}
