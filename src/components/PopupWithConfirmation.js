@@ -20,7 +20,7 @@ function PopupWithConfirmation({
       onClose={onClose}
       onSubmit={handleConfirm}
       isFormValid={true}
-    ></PopupWithForm>
+    />
   );
 }
 

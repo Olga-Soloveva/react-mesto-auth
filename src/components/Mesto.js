@@ -4,7 +4,7 @@ import apiOption from "../utils/Api";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-import Header from "./Header";
+
 import Main from "./Main";
 import Footer from "./Footer";
 
@@ -14,7 +14,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
 
-function Mesto({userData, handleLoggedIn}) {
+function Mesto() {
   const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
@@ -23,6 +23,7 @@ function Mesto({userData, handleLoggedIn}) {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isAwaitApiQuery, setIsAwaitApiQuery] = useState(false);
 
@@ -87,9 +88,16 @@ function Mesto({userData, handleLoggedIn}) {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    apiOption.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    apiOption
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCardDelete(card) {
@@ -97,7 +105,7 @@ function Mesto({userData, handleLoggedIn}) {
     setIsConfirmPopupOpen(true);
   }
 
-  function DeleteCard(card) {
+  function deleteCard(card) {
     apiOption
       .deleteCard(card._id)
       .then(() => {
@@ -143,6 +151,7 @@ function Mesto({userData, handleLoggedIn}) {
   }
 
   function handleCardClick(res) {
+    setImagePopupOpen(true)
     setSelectedCard(res);
   }
 
@@ -155,54 +164,53 @@ function Mesto({userData, handleLoggedIn}) {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsConfirmPopupOpen(false);
+    setImagePopupOpen(false)
     setSelectedCard({});
     setSelectedDeleteCard({});
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <>
-        <Header userData={userData} handleLoggedIn={handleLoggedIn}/>
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onEditAvatar={handleEditAvatarClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
-        <Footer />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          isSave={isAwaitApiQuery}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          onSaveChange={handleSaveBtn}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          isSave={isAwaitApiQuery}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-          onSaveChange={handleSaveBtn}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          isSave={isAwaitApiQuery}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-          onSaveChange={handleSaveBtn}
-        />
 
-        <PopupWithConfirmation
-          isOpen={isConfirmPopupOpen}
-          onClose={closeAllPopups}
-          onConfirm={DeleteCard}
-          selectedDeleteCard={selectedDeleteCard}
-        />
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-      </>
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onEditAvatar={handleEditAvatarClick}
+        onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
+        cards={cards}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
+      />
+      <Footer />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        isSave={isAwaitApiQuery}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+        onSaveChange={handleSaveBtn}
+      />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        isSave={isAwaitApiQuery}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+        onSaveChange={handleSaveBtn}
+      />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        isSave={isAwaitApiQuery}
+        onClose={closeAllPopups}
+        onAddPlace={handleAddPlaceSubmit}
+        onSaveChange={handleSaveBtn}
+      />
+
+      <PopupWithConfirmation
+        isOpen={isConfirmPopupOpen}
+        onClose={closeAllPopups}
+        onConfirm={deleteCard}
+        selectedDeleteCard={selectedDeleteCard}
+      />
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups}/>
     </CurrentUserContext.Provider>
   );
 }

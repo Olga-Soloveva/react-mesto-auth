@@ -1,4 +1,4 @@
-import logo from "../images/logo.svg";
+import Header from "./Header";
 
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
@@ -46,95 +46,82 @@ function Register({ onRegister }) {
   }, [isValidEmail, isValidPassword]);
 
   return (
-    <>
-      <header className="header">
-        <img className="header__logo" src={logo} alt="Логотип Mesto" />
-        <div className="header__container">
-          <Link
-            to="/sign-in"
-            className="header__button header__button_type_txt-register"
+    <section className="form">
+      <div className="form__container">
+        <h2 className="form__heading">Регистрация</h2>
+
+        <form
+          className="form__form"
+          name="login"
+          id="login"
+          onSubmit={handleSubmit}
+          noValidate
+        >
+          <label className="form__field">
+            <input
+              value={email}
+              onChange={handleChangeEmail}
+              className={`form__input ${
+                !isValidEmail && "form__input_iserror"
+              }`}
+              type="email"
+              id="email-input"
+              name="emailInput"
+              autoComplete="on"
+              placeholder="Email"
+              required
+            />
+            <span
+              className={`form__error email-input-error ${
+                !isValidEmail && "form__error_visible"
+              }`}
+            >
+              {errorEmailMessage}
+            </span>
+          </label>
+          <label className="form__field">
+            <input
+              value={password}
+              onChange={handleChangePassword}
+              className={`form__input ${
+                !isValidPassword && "form__input_iserror"
+              }`}
+              type="password"
+              id="password-input"
+              name="passwordInput"
+              autoComplete="off"
+              placeholder="Пароль"
+              required
+              minLength="8"
+            />
+            <span
+              className={`form__error password-input-error ${
+                !isValidPassword && "form__error_visible"
+              }`}
+            >
+              {errorPasswordMessage}
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            className={`form__submit-btn ${
+              !isValidForm && "form__submit-btn_disabled"
+            }`}
+            aria-label="Зарегистрироваться"
+            disabled={!isValidForm}
           >
+            Зарегистрироваться
+          </button>
+        </form>
+        <p className="form__question">
+          Уже зарегистрированы?{" "}
+          <Link to="/sign-in" className="form__question-islink">
             Войти
           </Link>
-        </div>
-      </header>
-      <section className="form">
-        <div className="form__container">
-          <h2 className="form__heading">Регистрация</h2>
-
-          <form
-            className="form__form"
-            name="login"
-            id="login"
-            onSubmit={handleSubmit}
-            noValidate
-          >
-            <label className="form__field">
-              <input
-                value={email}
-                onChange={handleChangeEmail}
-                className={`form__input ${
-                  !isValidEmail && "form__input_iserror"
-                }`}
-                type="email"
-                id="email-input"
-                name="emailInput"
-                autoComplete="on"
-                placeholder="Email"
-                required
-              />
-              <span
-                className={`form__error email-input-error ${
-                  !isValidEmail && "form__error_visible"
-                }`}
-              >
-                {errorEmailMessage}
-              </span>
-            </label>
-            <label className="form__field">
-              <input
-                value={password}
-                onChange={handleChangePassword}
-                className={`form__input ${
-                  !isValidPassword && "form__input_iserror"
-                }`}
-                type="password"
-                id="password-input"
-                name="passwordInput"
-                autoComplete="off"
-                placeholder="Пароль"
-                required
-                minLength="8"
-              />
-              <span
-                className={`form__error password-input-error ${
-                  !isValidPassword && "form__error_visible"
-                }`}
-              >
-                {errorPasswordMessage}
-              </span>
-            </label>
-
-            <button
-              type="submit"
-              className={`form__submit-btn ${
-                !isValidForm && "form__submit-btn_disabled"
-              }`}
-              aria-label="Зарегистрироваться"
-              disabled={!isValidForm}
-            >
-              Зарегистрироваться
-            </button>
-          </form>
-          <p className="form__question">
-            Уже зарегистрированы?{" "}
-            <Link to="/sign-in" className="form__question-islink">
-              Войти
-            </Link>
-          </p>
-        </div>
-      </section>
-    </>
+        </p>
+      </div>
+    </section>
   );
 }
 

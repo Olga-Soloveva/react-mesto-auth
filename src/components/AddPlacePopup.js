@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, isSave, onClose, onAddPlace, onSaveChange }) {
@@ -59,9 +59,7 @@ function AddPlacePopup({ isOpen, isSave, onClose, onAddPlace, onSaveChange }) {
         <input
           value={name}
           onChange={handleChangeName}
-          className={`popup__input ${
-            !isValidName && "popup__input_iserror"
-          }`}
+          className={`popup__input ${!isValidName && "popup__input_iserror"}`}
           type="text"
           id="place-input"
           name="placeInput"
@@ -83,9 +81,7 @@ function AddPlacePopup({ isOpen, isSave, onClose, onAddPlace, onSaveChange }) {
         <input
           value={link}
           onChange={handleChangeLink}
-          className={`popup__input ${
-            !isValidLink && "popup__input_iserror"
-          }`}
+          className={`popup__input ${!isValidLink && "popup__input_iserror"}`}
           type="url"
           id="link-input"
           name="linkInput"

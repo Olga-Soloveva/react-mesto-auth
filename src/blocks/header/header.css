@@ -1,13 +1,12 @@
 @import url(./__logo/header__logo.css);
 @import url(./__container/header__container.css);
 @import url(./__user-email/header__user-email.css);
-@import url(./__button/header__button.css);
-@import url(./__button/_type/header__button_type_txt-close.css);
-@import url(./__button/_type/header__button_type_txt-login.css);
-@import url(./__button/_type/header__button_type_txt-register.css);
+
 @import url(./__menu-btn/header__menu-btn.css);
 @import url(./__menu-container/header__menu-container.css);
 @import url(./__close-btn/header__close-btn.css);
+@import url(./__auth-link/header__auth-link.css);
+@import url(./__logout/header__logout.css);
 
 .header {
   width: 100%;

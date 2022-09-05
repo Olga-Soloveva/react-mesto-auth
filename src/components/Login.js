@@ -1,8 +1,8 @@
-import logo from "../images/logo.svg";
-
 import React, { useState, useEffect } from "react";
 
-import { Link, useHistory, withRouter } from "react-router-dom";
+import Header from "./Header";
+
+import { useHistory, withRouter } from "react-router-dom";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -48,89 +48,76 @@ function Login({ onLogin }) {
   }, [isValidEmail, isValidPassword]);
 
   return (
-    <>
-      <header className="header">
-        <img className="header__logo" src={logo} alt="Логотип Mesto" />
-        <div className="header__container">
-          <Link
-            to="/sign-up"
-            className="header__button header__button_type_txt-login"
-          >
-            Регистрация
-          </Link>
-        </div>
-      </header>
-      <section className="form">
-        <div className="form__container">
-          <h2 className="form__heading">Вход</h2>
+    <section className="form">
+      <div className="form__container">
+        <h2 className="form__heading">Вход</h2>
 
-          <form
-            className="form__form"
-            name="login"
-            id="login"
-            onSubmit={handleSubmit}
-            noValidate
-          >
-            <label className="form__field">
-              <input
-                value={email}
-                onChange={handleChangeEmail}
-                className={`form__input ${
-                  !isValidEmail && "form__input_iserror"
-                }`}
-                type="email"
-                id="email-input"
-                name="emailInput"
-                autoComplete="on"
-                placeholder="Email"
-                required
-              />
-              <span
-                className={`form__error email-input-error ${
-                  !isValidEmail && "form__error_visible"
-                }`}
-              >
-                {errorEmailMessage}
-              </span>
-            </label>
-            <label className="form__field">
-              <input
-                value={password}
-                onChange={handleChangePassword}
-                className={`form__input ${
-                  !isValidPassword && "form__input_iserror"
-                }`}
-                type="password"
-                id="password-input"
-                name="passwordInput"
-                autoComplete="off"
-                placeholder="Пароль"
-                required
-                minLength="8"
-              />
-              <span
-                className={`form__error password-input-error ${
-                  !isValidPassword && "form__error_visible"
-                }`}
-              >
-                {errorPasswordMessage}
-              </span>
-            </label>
-
-            <button
-              type="submit"
-              className={`form__submit-btn ${
-                !isValidForm && "form__submit-btn_disabled"
+        <form
+          className="form__form"
+          name="login"
+          id="login"
+          onSubmit={handleSubmit}
+          noValidate
+        >
+          <label className="form__field">
+            <input
+              value={email}
+              onChange={handleChangeEmail}
+              className={`form__input ${
+                !isValidEmail && "form__input_iserror"
               }`}
-              aria-label="Войти"
-              disabled={!isValidForm}
+              type="email"
+              id="email-input"
+              name="emailInput"
+              autoComplete="on"
+              placeholder="Email"
+              required
+            />
+            <span
+              className={`form__error email-input-error ${
+                !isValidEmail && "form__error_visible"
+              }`}
             >
-              Войти
-            </button>
-          </form>
-        </div>
-      </section>
-    </>
+              {errorEmailMessage}
+            </span>
+          </label>
+          <label className="form__field">
+            <input
+              value={password}
+              onChange={handleChangePassword}
+              className={`form__input ${
+                !isValidPassword && "form__input_iserror"
+              }`}
+              type="password"
+              id="password-input"
+              name="passwordInput"
+              autoComplete="off"
+              placeholder="Пароль"
+              required
+              minLength="8"
+            />
+            <span
+              className={`form__error password-input-error ${
+                !isValidPassword && "form__error_visible"
+              }`}
+            >
+              {errorPasswordMessage}
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            className={`form__submit-btn ${
+              !isValidForm && "form__submit-btn_disabled"
+            }`}
+            aria-label="Войти"
+            disabled={!isValidForm}
+          >
+            Войти
+          </button>
+        </form>
+      </div>
+    </section>
   );
 }
 

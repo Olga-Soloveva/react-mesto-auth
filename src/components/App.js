@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import Header from "./Header";
 import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
@@ -7,7 +8,7 @@ import Mesto from "./Mesto";
 
 import ProtectedRoute from "./ProtectedRoute";
 
-import * as Auth from "../utils/Auth.js";
+import authOption from "../utils/Auth";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -17,7 +18,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    let jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
     if (jwt) {
       auth(jwt);
     }
@@ -34,61 +35,74 @@ function App() {
   }
 
   function handleLoggedIn() {
-    setUserData('')
+    setUserData("");
     setLoggedIn(false);
   }
 
   const onRegister = ({ password, email }) => {
-    return Auth.register(password, email).then((res) => {
-      if (!res.data) {
+    return authOption
+      .register(password, email)
+      .then((res) => {
+        if (!res.data) {
+          setAuthStatus("error");
+          throw new Error("Что-то пошло не так!");
+        }
+        if (res.data) {
+          setAuthStatus("ok");
+          onLogin({ password, email });
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
         setInfoTooltipOpen(true);
-        setAuthStatus("error");
-        throw new Error("Что-то пошло не так!");
-      }
-      if (res.data) {
-        setLoggedIn(true);
-        setInfoTooltipOpen(true);
-        setAuthStatus("ok");
-        localStorage.setItem("jwt", res.data);
-      }
-    });
+      });
   };
 
   const onLogin = ({ password, email }) => {
-    return Auth.authorize(password, email).then((data) => {
-      if (!data) {
+    return authOption
+      .authorize(password, email)
+      .then((data) => {
+        if (!data) {
+          setInfoTooltipOpen(true);
+          setAuthStatus("error");
+          throw new Error("Неправильное имя пользователя или пароль");
+        }
+        if (data.token) {
+          setLoggedIn(true);
+          localStorage.setItem("jwt", data.token);
+        }
+      })
+      .catch((err) => {
         setInfoTooltipOpen(true);
         setAuthStatus("error");
-        throw new Error("Неправильное имя пользователя или пароль");
-      }
-      if (data.token) {
-        setLoggedIn(true);
-        localStorage.setItem("jwt", data.token);
-      }
-    });
+        console.log(err);
+      });
   };
 
   const auth = async (jwt) => {
-    Auth.getContent(jwt).then((res) => {
-      if (res) {
-        setLoggedIn(true);
-        setUserData({
-           email: res.data.email,
-        });
-      }
-    });
+    authOption
+      .checkToken(jwt)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setUserData({
+            email: res.data.email,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <div className="page">
+      <Header userData={userData} handleLoggedIn={handleLoggedIn} />
       <Switch>
         <ProtectedRoute
           exact
           path="/"
           loggedIn={loggedIn}
           component={Mesto}
-          userData={userData}
-          handleLoggedIn={handleLoggedIn}
+     
         ></ProtectedRoute>
         <Route path="/sign-up">
           <Register onRegister={onRegister} />
