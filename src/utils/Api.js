@@ -77,9 +77,9 @@ class Api {
   }
 }
 
-const apiOption = new Api({baseUrl: "https://mesto.nomoreparties.co/v1/cohort-45",
+const apiOption = new Api({baseUrl: "https://api.olgatovstaya.mesto.nomoredomains.club",
 headers: {
-  authorization: "76ff78f7-6b09-4766-9427-76c547592f27",
+  authorization: "51502d7e-ea58-46cd-abca-f69b5582fe98",
   "Content-Type": "application/json"
 }});
 

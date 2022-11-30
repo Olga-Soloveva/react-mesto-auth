@@ -11,7 +11,6 @@ https://olga-soloveva.github.io/react-mesto-auth/
 ## Функциональность проекта
 __Стэк__: HTML/CSS, JavaScript, React.js
 
-
 * Сайт создан через Create React App
 * Использованы функциональные компоненты
 * Применяются React-хуки, React Router
