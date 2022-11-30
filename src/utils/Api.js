@@ -77,7 +77,7 @@ class Api {
   }
 }
 
-const apiOption = new Api({baseUrl: "https://api.olgatovstaya.mesto.nomoredomains.club",
+const apiOption = new Api({baseUrl: "https://olgatovstaya.mesto.nomoredomains.club",
 headers: {
   authorization: "51502d7e-ea58-46cd-abca-f69b5582fe98",
   "Content-Type": "application/json"
