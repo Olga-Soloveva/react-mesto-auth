@@ -1,3 +1,5 @@
+import { BASE_URL } from './сonstant'
+
 class Auth {
   constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
@@ -16,6 +18,7 @@ class Auth {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({ password, email }),
     }).then(this._checkResponse);
   };
@@ -26,21 +29,23 @@ class Auth {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({ password, email }),
-    }).then(this._checkResponse);
+    })
+    .then(this._checkResponse);
   };
 
-  checkToken = (token) => {
+  checkToken = () => {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
+      credentials: "include"
     }).then(this._checkResponse);
   };
 }
 
-const authOption = new Auth({ baseUrl: "https://auth.nomoreparties.co" });
+const authOption = new Auth({ baseUrl: BASE_URL });
 
 export default authOption;

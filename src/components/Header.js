@@ -30,15 +30,14 @@ function Header({ userData, handleLoggedIn }) {
 
   const signOut = () => {
     handleLoggedIn();
-    localStorage.removeItem("jwt");
-    history.push("/sign-in");
+    history.push("/signin");
   };
   return (
     <>
       {windowWidth <= 650 && isMenuVisible && (
         <div className="header__menu-container">
           <p className="header__user-email">{userData.email}</p>
-          <Link to="/sign-in" className="header__logout" onClick={signOut}>
+          <Link to="/signin" className="header__logout" onClick={signOut}>
             Выйти
           </Link>
         </div>
@@ -66,22 +65,22 @@ function Header({ userData, handleLoggedIn }) {
           {windowWidth > 650 && (
             <div className="header__container">
               <p className="header__user-email">{userData.email}</p>
-              <Link to="/sign-in" className="header__logout" onClick={signOut}>
+              <Link to="/signin" className="header__logout" onClick={signOut}>
                 Выйти
               </Link>
             </div>
           )}
         </Route>
-        <Route path="/sign-up">
+        <Route path="/signup">
           <div className="header__container">
-            <Link to="/sign-in" className="header__auth-link">
+            <Link to="/signin" className="header__auth-link">
               Войти
             </Link>
           </div>
         </Route>
-        <Route path="/sign-in">
+        <Route path="/signin">
           <div className="header__container">
-            <Link to="/sign-up" className="header__auth-link">
+            <Link to="/signup" className="header__auth-link">
               Регистрация
             </Link>
           </div>

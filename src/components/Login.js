@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import Header from "./Header";
-
 import { useHistory, withRouter } from "react-router-dom";
 
 function Login({ onLogin }) {

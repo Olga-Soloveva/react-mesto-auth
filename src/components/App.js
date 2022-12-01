@@ -18,9 +18,11 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth(jwt);
+
+    if (document.cookie.split(';').filter(function(item) {
+      return item.trim().indexOf('jwt=') === 0
+    }).length) {
+      auth();
     }
   }, [loggedIn]);
 
@@ -35,21 +37,27 @@ function App() {
   }
 
   function handleLoggedIn() {
+    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC"
     setUserData("");
     setLoggedIn(false);
   }
 
   const onRegister = ({ password, email }) => {
+    const passwordIn = password;
     return authOption
       .register(password, email)
       .then((res) => {
-        if (!res.data) {
+        console.log(res)
+        if (!res._id) {
+          console.log(1)
           setAuthStatus("error");
           throw new Error("Что-то пошло не так!");
         }
-        if (res.data) {
+        if (res._id) {
+          console.log(2)
+          console.log(passwordIn)
           setAuthStatus("ok");
-          onLogin({ password, email });
+          setLoggedIn(true);
         }
       })
       .catch((err) => console.log(err))
@@ -67,26 +75,24 @@ function App() {
           setAuthStatus("error");
           throw new Error("Неправильное имя пользователя или пароль");
         }
-        if (data.token) {
+        if (data) {
           setLoggedIn(true);
-          localStorage.setItem("jwt", data.token);
         }
       })
       .catch((err) => {
         setInfoTooltipOpen(true);
         setAuthStatus("error");
-        console.log(err);
       });
   };
 
-  const auth = async (jwt) => {
+  const auth = async () => {
     authOption
-      .checkToken(jwt)
+      .checkToken()
       .then((res) => {
         if (res) {
           setLoggedIn(true);
           setUserData({
-            email: res.data.email,
+            email: res.email,
           });
         }
       })
@@ -104,14 +110,14 @@ function App() {
           component={Mesto}
      
         ></ProtectedRoute>
-        <Route path="/sign-up">
+        <Route path="/signup">
           <Register onRegister={onRegister} />
         </Route>
-        <Route path="/sign-in">
+        <Route path="/signin">
           <Login onLogin={onLogin} />
         </Route>
         <Route>
-          {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
         </Route>
       </Switch>
       <InfoTooltip

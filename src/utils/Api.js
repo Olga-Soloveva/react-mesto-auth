@@ -1,3 +1,5 @@
+import { BASE_URL } from './сonstant'
+
 class Api {
   constructor({baseUrl, headers}) {
     this._baseUrl = baseUrl;
@@ -13,7 +15,9 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
+      method: "GET",
       headers: this._headers,
+      credentials: 'include'
     }).then(this._checkResponse);
   }
 
@@ -25,6 +29,7 @@ class Api {
         name,
         about,
       }),
+      credentials: 'include'
     }).then(this._checkResponse);
   }
 
@@ -35,13 +40,16 @@ class Api {
       body: JSON.stringify({
         avatar,
       }),
+      credentials: 'include'
     }).then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then(this._checkResponse);
+      credentials: 'include'
+    }).then(this._checkResponse)
+    .then(res => res.reverse())
   }
 
   sendCardInfo({ name, link }) {
@@ -52,6 +60,7 @@ class Api {
         name,
         link,
       }),
+      credentials: 'include'
     }).then(this._checkResponse);
   }
 
@@ -59,6 +68,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include'
     }).then(this._checkResponse);
   }
 
@@ -67,20 +77,21 @@ class Api {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
         headers: this._headers,
+        credentials: 'include'
       }).then(this._checkResponse);
     } else {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
         headers: this._headers,
+        credentials: 'include'
       }).then(this._checkResponse);
     }
   }
 }
 
-const apiOption = new Api({baseUrl: "https://olgatovstaya.mesto.nomoredomains.club",
+const apiOption = new Api({baseUrl: BASE_URL,
 headers: {
-  authorization: "51502d7e-ea58-46cd-abca-f69b5582fe98",
-  "Content-Type": "application/json"
+  "Content-Type": "application/json",
 }});
 
 export default apiOption;
