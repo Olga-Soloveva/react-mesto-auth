@@ -26,6 +26,7 @@ function App() {
   const [authStatus, setAuthStatus] = useState("");
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState({
+    id: "",
     name: "",
     about: "",
     avatar: "",
@@ -49,6 +50,7 @@ function App() {
         .then((res) => {
           setCurrentUser({
             ...currentUser,
+            id: res._id,
             name: res.name,
             about: res.about,
             avatar: res.avatar,
@@ -78,6 +80,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
+            setEmail(res.email)
             history.push("/");
           }
         })
@@ -95,7 +98,7 @@ function App() {
   function onSignOut() {
     history.push("/signin");
     localStorage.removeItem("jwt");
-    setCurrentUser({ name: "", about: "", avatar: "", email: "" });
+    setCurrentUser({  id: "", name: "", about: "", avatar: "" });
     setCards([]);
     setEmail("");
     setLoggedIn(false);
@@ -134,6 +137,7 @@ function App() {
         }
         if (data.token) {
           localStorage.setItem("jwt", data.token);
+          setEmail(email)
           setLoggedIn(true);
         }
       })
@@ -182,7 +186,7 @@ function App() {
 
   function handleCardLike(card) {
     const token = localStorage.getItem("jwt");
-    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser.id);
     apiOption
       .changeLikeCardStatus(card._id, !isLiked, token)
       .then((newCard) => {
