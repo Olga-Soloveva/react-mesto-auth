@@ -13,85 +13,98 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserInfo() {
+  getUserInfo(token) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      headers: this._headers,
-      credentials: 'include'
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     }).then(this._checkResponse);
   }
 
-  editUserInfo({ name, about }) {
+  editUserInfo({ name, about, token }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name,
         about,
       }),
-      credentials: 'include'
     }).then(this._checkResponse);
   }
 
-  editAvatarInfo({ avatar }) {
+  editAvatarInfo({ avatar, token }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         avatar,
       }),
-      credentials: 'include'
     }).then(this._checkResponse);
   }
 
-  getInitialCards() {
+  getInitialCards(token) {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-      credentials: 'include'
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     }).then(this._checkResponse)
     .then(res => res.reverse())
   }
 
-  sendCardInfo({ name, link }) {
+  sendCardInfo({ name, link, token }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name,
         link,
       }),
-      credentials: 'include'
     }).then(this._checkResponse);
   }
 
-  deleteCard(cardId) {
+  deleteCard(cardId, token) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
-      credentials: 'include'
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     }).then(this._checkResponse);
   }
 
-  changeLikeCardStatus(cardId, isLiked) {
+  changeLikeCardStatus(cardId, isLiked, token) {
     if (isLiked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
-        headers: this._headers,
-        credentials: 'include'
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }).then(this._checkResponse);
     } else {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
-        headers: this._headers,
-        credentials: 'include'
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }).then(this._checkResponse);
     }
   }
 }
 
-const apiOption = new Api({baseUrl: BASE_URL,
-headers: {
-  "Content-Type": "application/json",
-}});
+const apiOption = new Api({baseUrl: BASE_URL});
 
 export default apiOption;

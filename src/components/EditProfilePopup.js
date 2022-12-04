@@ -9,7 +9,7 @@ function EditProfilePopup({
   onUpdateUser,
   onSaveChange,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const [currentUser] = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isValidName, setIsValidName] = useState(true);

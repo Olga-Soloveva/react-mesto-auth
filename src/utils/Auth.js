@@ -1,4 +1,4 @@
-import { BASE_URL } from './сonstant'
+import { BASE_URL } from "./сonstant";
 
 class Auth {
   constructor({ baseUrl }) {
@@ -18,7 +18,6 @@ class Auth {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: 'include',
       body: JSON.stringify({ password, email }),
     }).then(this._checkResponse);
   };
@@ -29,19 +28,18 @@ class Auth {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: 'include',
       body: JSON.stringify({ password, email }),
     })
-    .then(this._checkResponse);
+      .then(this._checkResponse)
   };
 
-  checkToken = () => {
+  checkToken = (token) => {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      credentials: "include"
     }).then(this._checkResponse);
   };
 }

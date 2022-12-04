@@ -1,9 +1,9 @@
 import logo from "../images/logo.svg";
 
 import React, { useState, useEffect } from "react";
-import { Route, Link, useHistory } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
-function Header({ userData, handleLoggedIn }) {
+function Header({ email, onSignOut }) {
   const [windowWidth, setWindowWidth] = useState([window.innerWidth]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
@@ -26,18 +26,12 @@ function Header({ userData, handleLoggedIn }) {
     };
   }, []);
 
-  const history = useHistory();
-
-  const signOut = () => {
-    handleLoggedIn();
-    history.push("/signin");
-  };
   return (
     <>
       {windowWidth <= 650 && isMenuVisible && (
         <div className="header__menu-container">
-          <p className="header__user-email">{userData.email}</p>
-          <Link to="/signin" className="header__logout" onClick={signOut}>
+          <p className="header__user-email">{email}</p>
+          <Link to="/signin" className="header__logout" onClick={onSignOut}>
             Выйти
           </Link>
         </div>
@@ -64,8 +58,8 @@ function Header({ userData, handleLoggedIn }) {
           )}
           {windowWidth > 650 && (
             <div className="header__container">
-              <p className="header__user-email">{userData.email}</p>
-              <Link to="/signin" className="header__logout" onClick={signOut}>
+              <p className="header__user-email">{email}</p>
+              <Link to="/signin" className="header__logout" onClick={onSignOut}>
                 Выйти
               </Link>
             </div>

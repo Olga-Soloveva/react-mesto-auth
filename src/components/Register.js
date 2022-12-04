@@ -1,5 +1,3 @@
-import Header from "./Header";
-
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 
